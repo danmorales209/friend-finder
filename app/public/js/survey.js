@@ -59,7 +59,9 @@ $(document).ready(function () {
             userResponse.survey.push(Number($(this).val()));
         });
 
-        console.log(userResponse);
+        $.post("/api/post", userResponse, function(error) {
+            if (error) console.log(error);
+        });
     })
 
 });

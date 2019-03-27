@@ -1,10 +1,22 @@
-var express = require("../../node_modules/express");
+var path = require("path");
 
-var router = express.Router();
 
-router.get("/", function (req, res) {
-    console.log(__filename + " called the get function");
-    res.end("Hello!");
-});
+module.exports = function (app) {
+    
+    app.get("/", function (req, res) {
+        res.status(200).sendFile(path.join(__dirname, "./../public/home.html"), function (error) {
+            if (error) throw error;
 
-module.exports = router;
+            console.log('home file sent');
+        });
+    });
+
+    app.get("/survey", function (req, res) {
+        res.status(200).sendFile(path.join(__dirname, "./../public/survey.html"), function (error) {
+            if (error) throw error;
+
+            console.log('Survey file sent');
+        });
+    });
+
+};
