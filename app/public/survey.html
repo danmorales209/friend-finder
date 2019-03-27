@@ -15,59 +15,121 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.js"
         integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
 
+    <script src="js/survey.js"></script>
+    <link rel="stylesheet" href="./css/survey.css">
+
 </head>
 
 <body>
     <div class="Jumbotron-fluid bg-secondary text-light text-center p-3 p-sm-1 m-0">
-        <h1 class= "display-4">Welcome to the survey!</h1>
+        <h1 class="display-4">Welcome to the survey!</h1>
         <p class="display-5">Asnwer all the questions below to find your patened highest match!</p>
     </div>
 
-    <div class = "container">
+    <div class="container">
         <div class="row">
-            <div class = "col-12">
-                <form class="my-0 my-sm-3">
-                    <div class= "form-group">
-                        <label for="q1-input"> Q1: questions Value: <span id="q1-value">1</span></label>
-                        <input type="range" id="q1-input" class="form-control-range" min=1 max=5 step=1>
+            <div class="col-12">
+                <form class="my-0 my-sm-3 p-sm-3 p-1">
+
+                    <div class="form-group initial-display">
+                        <label for="user-name" class=" mt-2 mb-1">
+                            <h3>Please enter your name</h3>
+                        </label>
+                        <input id="user-name" class="form-control " placeholder="Your Name">
                     </div>
-                    <div class= "form-group">
-                        <label for="q2-input"> Q2: questions Value: <span id="q2-value">1</span></label>
-                        <input type="range" id="q2-input" class="form-control-range" min=1 max=5 step=1>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q1-input">
+                            <h3>Question 1: I enjoy computers.</h3>
+                        </label>
+                        <h4 id="q1-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q1-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <div class= "form-group">
-                        <label for="q3-input"> Q3: questions Value: <span id="q3-value">1</span></label>
-                        <input type="range" id="q3-input" class="form-control-range" min=1 max=5 step=1>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q2-input">
+                            <h3>Question 2: I like piña coladas.</h3>
+                        </label>
+                        <h4 id="q2-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q2-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <div class= "form-group">
-                        <label for="q4-input"> Q4: questions Value: <span id="q4-value">1</span></label>
-                        <input type="range" id="q4-input" class="form-control-range" min=1 max=5 step=1>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q3-input">
+                            <h3>Question 3: I like getting caught in the rain.</h3>
+                        </label>
+                        <h4 id="q3-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q3-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <div class= "form-group">
-                        <label for="q5-input"> Q5: questions Value: <span id="q5-value">1</span></label>
-                        <input type="range" id="q5-input" class="form-control-range" min=1 max=5 step=1>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q4-input">
+                            <h3>Question 4: I like raindrops on roses, and whiskers on kittens. </h3>
+                        </label>
+                        <h4 id="q4-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q4-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <div class= "form-group">
-                        <label for="q6-input"> Q6: questions Value: <span id="q6-value">1</span></label>
-                        <input type="range" id="q6-input" class="form-control-range" min=1 max=5 step=1>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q5-input">
+                            <h3>Question 5: I like to move it, move it. </h3>
+                        </label>
+                        <h4 id="q5-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q5-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <div class= "form-group">
-                        <label for="q7-input"> Q7: questions Value: <span id="q7-value">1</span></label>
-                        <input type="range" id="q7-input" class="form-control-range" min=1 max=5 step=1>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q6-input">
+                            <h3>Question 6: I like getting up early. </h3>
+                        </label>
+                        <h4 id="q6-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q6-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <div class= "form-group">
-                        <label for="q8-input"> Q8: questions Value: <span id="q8-value">1</span></label>
-                        <input type="range" id="q8-input" class="form-control-range" min=1 max=5 step=1>
+
+
+                    <div class="form-group initial-hidden">
+                        <label for="q7-input">
+                            <h3>Question 7: I belive the earth is flat.</h3>
+                        </label>
+                        <h4 id="q7-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q7-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <div class= "form-group">
-                        <label for="q9-input"> Q9: questions Value: <span id="q9-value">1</span></label>
-                        <input type="range" id="q9-input" class="form-control-range" min=1 max=5 step=1>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q8-input">
+                            <h3>Question 8: I would lke to go to the moon one day.</h3>
+                        </label>
+                        <h4 id="q8-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q8-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <div class= "form-group">
-                        <label for="q10-input"> Q10: questions Value: <span id="q10-value">1</span></label>
-                        <input type="range" id="q10-input" class="form-control-range" min=1 max=5 step=1>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q9-input">
+                            <h3>Question 9: I like talking to people.</h3>
+                        </label>
+                        <h4 id="q9-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q9-input" class="form-control-range" min=1 max=5 step=1>
                     </div>
-                    <button id="submit" class= "btn btn-success btn-large btn-block w-75 mx-auto">Submit Survey!</button>
+
+                    <div class="form-group initial-hidden">
+                        <label for="q10-input">
+                            <h3>Question 10: I like corn.</h3>
+                        </label>
+                        <h4 id="q10-value" class="value-display text-center">
+                            </h3>
+                            <input type="range" id="q10-input" class="form-control-range" min=1 max=5 step=1>
+                    </div>
+
+                    <button id="submit" class="btn btn-success btn-large btn-block w-75 mx-auto">Submit Survey!</button>
                 </form>
                 <div id="display-results">
                     Results to go here
