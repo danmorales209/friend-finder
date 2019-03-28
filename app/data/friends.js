@@ -2,73 +2,117 @@ module.exports = {
     users: [{
             name: "Jackie",
             imgURL: "./img/brush.jpg",
-            survey: [1, 2, 3, 4, 5, 4, 3, 2, 1, 5]
+            survey: [1, 2, 3, 4, 5, 4, 3, 2, 1, 5],
+            matchIndex: -1,
+            matchScore: 0
         },
         {
             name: "Ben",
             imgURL: "./img/ben.stock.jpg",
-            survey: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+            survey: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+            matchIndex: -1,
+            matchScore: 0
         },
         {
             name: "Shane",
             imgURL: "./img/male-stock-photos-4.jpg",
-            survey: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+            survey: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            matchIndex: -1,
+            matchScore: 0
         },
         {
             name: "Kayla",
             imgURL: "./img/corn-lday.jpg",
-            survey: [5, 1, 1, 1, 1, 1, 1, 1, 5, 5]
+            survey: [5, 1, 1, 1, 1, 1, 1, 1, 5, 5],
+            matchIndex: -1,
+            matchScore: 0
         },
         {
             name: "Carl",
             imgURL: "./img/tmg-article_default_mobile.jpg",
-            survey: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+            survey: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+            matchIndex: -1,
+            matchScore: 0
         },
         {
             name: "Tami",
             imgURL: "./img/brush.jpg",
-            survey: [2, 4, 2, 4, 2, 4, 2, 4, 2, 4]
+            survey: [2, 4, 2, 4, 2, 4, 2, 4, 2, 4],
+            matchIndex: -1,
+            matchScore: 0
         }
     ],
     match: {},
 
-    findMatch: function (newUser) {
+    findMatch: function (inUser) {
         let difference = new Array(this.users.length);
-        let matchIndex = 0;
         let users = this.users;
 
 
         for (let i = 0; i < difference.length; i++) {
-            difference[i] = newUser.survey
+
+            difference[i] = inUser.survey
                 .reduce(function (acc, cur, ind) {
                     acc = Math.abs(cur - users[i].survey[ind]);
                     return acc;
                 }, 0);
 
+            if (i == 0) {
+                continue;
+            }
+            if (difference[i - 1] < difference[i]) {
+                inUser.matchIndex = i - 1;
+            }
+        }
+
+        inUser.matchScore = this.calculatePercentMatch(difference[inUser.matchIndex]);
+
+        this.addFriend(inUser);
+    },
+
+    updateSurvey: function (inUser) {
+        let userIndex = this.users.findIndex(x => x.name === inUser.name);
+
+        this.users[userIndex].survey = inUser.survey;
+    },
+
+    updateMatch: function (user, skipIndex) {
+        let difference = new Array(this.users.length);
+        user.matchIndex = -1;
+        let users = this.users;
+
+        console.log(user.survey);
+
+
+        for (let i = 0; i < difference.length; i++) {
+
+            if (i === Number(skipIndex)) {
+                difference[i] = 50;
+            } else {
+                difference[i] = user.survey
+                    .reduce(function (acc, cur, ind) {
+                        acc = Math.abs(cur - users[i].survey[ind]);
+                        return acc;
+                    }, 0);
+            }
 
             if (i == 0) {
                 continue;
             }
-            if (difference)
-                if (difference[i - 1] < difference[i]) {
-                    matchIndex = i - 1;
-                }
-            // console.log(i, difference[i], matchIndex)
+            if (difference[i - 1] < difference[i]) {
+                user.matchIndex = i - 1;
+            }
         }
 
-        this.match = {
-            you: newUser,
-            pair: this.users[matchIndex],
-            score: this.calculatePercentMatch(difference[matchIndex])
-        }
+        user.matchScore = this.calculatePercentMatch(difference[user.matchIndex]);
 
     },
 
-    calculatePercentMatch : function (diffScore) {
+    calculatePercentMatch: function (diffScore) {
         return (1 - (diffScore / 40)) * 100;
     },
 
-    addFriend : function (newUser) {
+    addFriend: function (newUser) {
         this.users.push(newUser);
     }
 

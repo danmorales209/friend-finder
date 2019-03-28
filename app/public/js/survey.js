@@ -58,26 +58,57 @@ $(document).ready(function () {
         let userResponse = {
             name: $("#user-name").val().trim(),
             imgURL: "http://lorempixel.com/300/300/people/",
-            survey: []
+            survey: [],
+            matchIndex: -1,
+            matchScore: 0
         };
 
         $(".form-control-range").each(function () {
             userResponse.survey.push(Number($(this).val()));
         });
 
-        $.post("/api/post", userResponse, function (error) {
+        $.get("/api/get/users").then(function (response) {
+            let users = response;
+            let knownUserIndex = users.findIndex(user => user === userResponse.name);
 
-            if (error) console.log(error);
+            if (knownUserIndex > 0) {
+                $.ajax({
+                    url: "/api/put/" + userResponse.name,
+                    method: "PUT",
+                    data: userResponse,
+                    dataType: "text"
 
-        }).then(function () {
-            $.get("/api/get/match").then(function (response) {
-                console.log(response);
-                $("#your-name").text(response.you.name);
-                $("#your-img").attr("src", response.you.imgURL);
-                $("#match-name").text(response.pair.name);
-                $("#match-img").attr("src", response.pair.imgURL);
-            });
-        });
+                }).done(function () {
+                    console.log("PUT occurred");
+                }).then(function () {
+                    $.get("/api/get/match/" + userResponse.name).then(function (response) {
+                        console.log(response);
+                        $("#your-name").text(response.you.name);
+                        $("#your-img").attr("src", response.you.imgURL);
+                        $("#match-name").text(response.pair.name);
+                        $("#match-img").attr("src", response.pair.imgURL);
+                    });
+                });
+            } else {
+
+                $.post("/api/post", userResponse, function (error) {
+
+                    if (error) console.log(error);
+
+                }).then(function () {
+                    let name = $("#user-name").val().trim();
+
+                    $.get("/api/get/match/" + name).then(function (response) {
+                        console.log(response);
+                        $("#your-name").text(response.you.name);
+                        $("#your-img").attr("src", response.you.imgURL);
+                        $("#match-name").text(response.pair.name);
+                        $("#match-img").attr("src", response.pair.imgURL);
+                    });
+                });
+            }
+        })
+
 
     });
 
