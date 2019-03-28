@@ -1,4 +1,5 @@
-module.exports = [{
+module.exports = {
+    users: [{
         name: "Jackie",
         imgURL: "./img/brush.jpg",
         survey: [1, 2, 3, 4, 5, 4, 3, 2, 1, 5]
@@ -27,5 +28,6 @@ module.exports = [{
         name: "Tami",
         imgURL: "./img/brush.jpg",
         survey: [2, 4, 2, 4, 2, 4, 2, 4, 2, 4]
-    },
-];
+    }],
+    match: {}
+};
