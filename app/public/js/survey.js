@@ -34,7 +34,7 @@ $(document).ready(function () {
         $(this).val(3).trigger("change");
     });
 
-    $("#user-name").on("blur", function () {
+    $("#user-name").on("click", function () {
         $(".initial-hidden:first").css({
             "display": "inherit"
         }).animate({
@@ -66,16 +66,16 @@ $(document).ready(function () {
         });
 
         $.post("/api/post", userResponse, function (error) {
-            
+
             if (error) console.log(error);
 
         }).then(function () {
             $.get("/api/get/match").then(function (response) {
                 console.log(response);
                 $("#your-name").text(response.you.name);
-                $("#your-img").attr("src",response.you.imgURL);
+                $("#your-img").attr("src", response.you.imgURL);
                 $("#match-name").text(response.pair.name);
-                $("#match-img").attr("src",response.pair.imgURL);
+                $("#match-img").attr("src", response.pair.imgURL);
             });
         });
 
