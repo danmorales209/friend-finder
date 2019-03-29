@@ -3,7 +3,7 @@
 // run after page load has completed
 $(document).ready(function () {
 
-    // Add event listener to the slider. Updates the display according the the slider value
+    // Add event listener to the sliders. Updates the display according the the slider value
     $(".form-control-range").on("change", function () {
         let input = Number($(this).val());
         let response = "";
