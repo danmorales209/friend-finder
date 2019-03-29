@@ -2,7 +2,7 @@ module.exports = {
     users: [{
             name: "Jackie",
             imgURL: "./img/brush.jpg",
-            survey: [1, 2, 3, 4, 5, 4, 3, 2, 1, 5],
+            survey: [1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
             matchIndex: -1,
             matchScore: 0
         },
@@ -23,21 +23,21 @@ module.exports = {
         {
             name: "Kayla",
             imgURL: "./img/corn-lday.jpg",
-            survey: [5, 1, 1, 1, 1, 1, 1, 1, 5, 5],
+            survey: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
             matchIndex: -1,
             matchScore: 0
         },
         {
             name: "Carl",
             imgURL: "./img/tmg-article_default_mobile.jpg",
-            survey: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+            survey: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
             matchIndex: -1,
             matchScore: 0
         },
         {
             name: "Tami",
-            imgURL: "./img/brush.jpg",
-            survey: [2, 4, 2, 4, 2, 4, 2, 4, 2, 4],
+            imgURL: "./img/female-stock-photos-2.jpg",
+            survey: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
             matchIndex: -1,
             matchScore: 0
         }
@@ -47,6 +47,7 @@ module.exports = {
     findMatch: function (inUser) {
         let difference = new Array(this.users.length);
         let users = this.users;
+        let min
 
 
         for (let i = 0; i < difference.length; i++) {
@@ -58,12 +59,17 @@ module.exports = {
                 }, 0);
 
             if (i == 0) {
+                min = difference[i];
+                inUser.matchIndex = i;
                 continue;
             }
-            if (difference[i - 1] < difference[i]) {
-                inUser.matchIndex = i - 1;
+            if (difference[i] < min) {
+                min = difference[i];
+                inUser.matchIndex = i;
             }
         }
+
+        console.log("add diff:", difference);
 
         inUser.matchScore = this.calculatePercentMatch(difference[inUser.matchIndex]);
 
@@ -76,33 +82,33 @@ module.exports = {
         this.users[userIndex].survey = inUser.survey;
     },
 
-    updateMatch: function (user, skipIndex) {
+    updateMatch: function (user) {
         let difference = new Array(this.users.length);
-        user.matchIndex = -1;
+        // user.matchIndex = -1;
+        let min;
         let users = this.users;
-
-        console.log(user.survey);
-
 
         for (let i = 0; i < difference.length; i++) {
 
-            if (i === Number(skipIndex)) {
-                difference[i] = 50;
-            } else {
-                difference[i] = user.survey
-                    .reduce(function (acc, cur, ind) {
-                        acc = Math.abs(cur - users[i].survey[ind]);
-                        return acc;
-                    }, 0);
-            }
+
+            difference[i] = user.survey
+                .reduce(function (acc, cur, ind) {
+                    acc = Math.abs(cur - users[i].survey[ind]);
+                    return acc;
+                }, 0);
 
             if (i == 0) {
+                min = difference[i];
+                user.matchIndex = i;
                 continue;
             }
-            if (difference[i - 1] < difference[i]) {
-                user.matchIndex = i - 1;
+            if (difference[i] < min) {
+                min = difference[i];
+                user.matchIndex = i;
             }
         }
+
+        console.log(user)
 
         user.matchScore = this.calculatePercentMatch(difference[user.matchIndex]);
 

@@ -16,7 +16,7 @@ module.exports = function (app) {
             you: friends.users[userIndex],
             pair: friends.users[friends.users[userIndex].matchIndex],
             score: friends.users[userIndex].matchScore
-        });
+        }).end();
     })
 
     app.get("/api/get/users", function (req, res) {

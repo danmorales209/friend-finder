@@ -70,47 +70,48 @@ $(document).ready(function () {
         $.get("/api/get/users").then(function (response) {
             let users = response;
             let knownUserIndex = users.findIndex(user => user === userResponse.name);
+            
+            console.log(userResponse);
+            console.log(users, userResponse.name);
 
-            if (knownUserIndex > 0) {
+            if (knownUserIndex >= 0) {
                 $.ajax({
                     url: "/api/put/" + userResponse.name,
                     method: "PUT",
                     data: userResponse,
                     dataType: "text"
 
-                }).done(function () {
-                    console.log("PUT occurred");
-                }).then(function () {
-                    $.get("/api/get/match/" + userResponse.name).then(function (response) {
-                        console.log(response);
-                        $("#your-name").text(response.you.name);
-                        $("#your-img").attr("src", response.you.imgURL);
-                        $("#match-name").text(response.pair.name);
-                        $("#match-img").attr("src", response.pair.imgURL);
-                    });
-                });
+                }).then(printMatch);
+
             } else {
 
                 $.post("/api/post", userResponse, function (error) {
 
                     if (error) console.log(error);
 
-                }).then(function () {
-                    let name = $("#user-name").val().trim();
-
-                    $.get("/api/get/match/" + name).then(function (response) {
-                        console.log(response);
-                        $("#your-name").text(response.you.name);
-                        $("#your-img").attr("src", response.you.imgURL);
-                        $("#match-name").text(response.pair.name);
-                        $("#match-img").attr("src", response.pair.imgURL);
-                    });
-                });
+                }).then(printMatch);
             }
         })
+    });
+});
 
+var printMatch = function () {
+    let name = $("#user-name").val().trim();
+
+    $.get("/api/get/match/" + name).then(function (response) {
+        console.log(response);
+        $("#your-name").text(response.you.name);
+        $("#your-img").attr("src", response.you.imgURL);
+        $("#match-name").text(response.pair.name);
+        $("#match-img").attr("src", response.pair.imgURL);
+        $("#match-score").text(response.score + "%");
+
+        $("#user-name").val("");
+        $(".initial-hidden").animate({
+            opacity: 0
+        }, 500).css({
+            display: "none"
+        });
 
     });
-
-
-});
+}
